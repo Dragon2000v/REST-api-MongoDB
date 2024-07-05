@@ -1,5 +1,7 @@
 import mongoose from 'mongoose';
-import { DB_HOST } from '../../config.js';
+// import { DB_HOST } from '../../config.js';
+
+const { DB_HOST } = process.env;
 
 const initMongoDBConnection = async () => {
   try {
