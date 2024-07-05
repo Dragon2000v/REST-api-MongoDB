@@ -1,7 +1,12 @@
 // eslint-disable-next-line no-unused-vars
 const errorHandler = (error, req, res, next) => {
-  res.status(500).json({
-    message: 'Server error',
+  const { status = 500, message = 'Server error' } = error;
+  res.status(status).json({
+    status,
+    message,
+    data: {
+      message,
+    },
   });
 };
 

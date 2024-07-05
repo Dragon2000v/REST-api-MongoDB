@@ -1,4 +1,6 @@
 import * as songServices from '../services/song-services.js';
+import HttpError from '../utils/HttpError.js';
+import ctrlWrapper from '../decorators/ctrlWrapper.js';
 
 const getSongsController = async (req, res) => {
   const data = await songServices.getSongs();
@@ -15,13 +17,7 @@ const getSongByIdController = async (req, res) => {
   const data = await songServices.getSongById(id);
 
   if (!data) {
-    return res.status(404).json({
-      status: 404,
-      message: `Song with id=${id} not found`,
-      data: {
-        message: `Song with id=${id} not found`,
-      },
-    });
+    throw HttpError(404, `Song with id=${id} not found`);
   }
 
   res.status(200).json({
@@ -32,6 +28,6 @@ const getSongByIdController = async (req, res) => {
 };
 
 export default {
-  getSongsController,
-  getSongByIdController,
+  getSongsController: ctrlWrapper(getSongsController),
+  getSongByIdController: ctrlWrapper(getSongByIdController),
 };
