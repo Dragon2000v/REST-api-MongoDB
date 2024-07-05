@@ -2,8 +2,10 @@ import express from 'express';
 import cors from 'cors';
 import pino from 'pino-http';
 
+import env from './utils/env.js';
+
 const startServer = () => {
-  const port = Number(3000);
+  const port = Number(env('PORT', 3000));
   const app = express();
 
   const logger = pino({
