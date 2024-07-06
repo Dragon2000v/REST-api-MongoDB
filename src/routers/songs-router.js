@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import songsControllers from '../controllers/songs-controllers.js';
 
-import isValidid from '../middlewares/isValidid.js';
+import isValidid from '../middlewares/isValidId.js';
 
 const songsRouter = Router();
 
