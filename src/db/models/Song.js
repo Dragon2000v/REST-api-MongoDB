@@ -1,6 +1,9 @@
 import { Schema, model } from 'mongoose';
 import { mongoSaveError } from './hooks.js';
-
+import {
+  genreList,
+  releaseYearRegexp,
+} from '../../constants/song-constants.js';
 const songSchema = new Schema(
   {
     author: {
@@ -18,12 +21,12 @@ const songSchema = new Schema(
     },
     genre: {
       type: String,
-      enum: ['pop', 'rock'],
+      enum: genreList,
       required: true,
     },
     releaseYear: {
       type: String,
-      match: /^\d{4}$/,
+      match: releaseYearRegexp,
       required: true,
     },
   },
