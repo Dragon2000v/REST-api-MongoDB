@@ -2,3 +2,4 @@ import Song from '../db/models/Song.js';
 
 export const getSongs = () => Song.find();
 export const getSongById = _id => Song.findOne({ _id });
+export const addSong = data => Song.create(data);

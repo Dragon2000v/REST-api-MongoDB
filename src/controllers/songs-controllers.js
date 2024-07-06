@@ -27,7 +27,17 @@ const getSongByIdController = async (req, res) => {
   });
 };
 
+const addSongController = async (req, res) => {
+  const data = await songServices.addSong(req.body);
+  res.status(201).json({
+    status: 201,
+    message: `Song add successfully`,
+    data,
+  });
+};
+
 export default {
   getSongsController: ctrlWrapper(getSongsController),
   getSongByIdController: ctrlWrapper(getSongByIdController),
+  addSongController: ctrlWrapper(addSongController),
 };
