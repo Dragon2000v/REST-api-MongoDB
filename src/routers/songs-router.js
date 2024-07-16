@@ -2,8 +2,9 @@ import { Router } from 'express';
 import songsControllers from '../controllers/songs-controllers.js';
 
 import isValidId from '../middlewares/isValidId.js';
+import isEmptyBody from '../middlewares/isEmptyBody.js';
 import validateBody from '../decorators/validateBody.js';
-import { songAddSchema } from '../validation/song-schemas.js';
+import { songAddSchema, songUpdateSchema } from '../validation/song-schemas.js';
 
 const songsRouter = Router();
 
@@ -14,4 +15,14 @@ songsRouter.post(
   validateBody(songAddSchema),
   songsControllers.addSongController
 );
+songsRouter.put(
+  '/:id',
+  isValidId,
+  isEmptyBody,
+  validateBody(songUpdateSchema),
+  songsControllers.updateSongController
+);
+
+songsRouter.delete('/:id', isValidId, songsControllers.deleteSongController);
+
 export default songsRouter;
