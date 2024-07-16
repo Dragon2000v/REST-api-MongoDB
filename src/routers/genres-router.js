@@ -11,12 +11,13 @@ import {
 
 const genresRouter = Router();
 
+genresRouter.get('/', genresControllers.getGenres);
 genresRouter.post(
   '/',
   isEmptyBody,
   validateBody(genreAddSchema),
   genresControllers.addGenre
 );
-genresRouter.put('./:id', isValidId, validateBody(genreUpdateSchema));
+genresRouter.put('/:id', isValidId, validateBody(genreUpdateSchema));
 
 export default genresRouter;
