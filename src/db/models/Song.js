@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { mongoSaveError } from './hooks.js';
+import { mongoSaveError, setMongoUpdateSettings } from './hooks.js';
 import {
   genreList,
   releaseYearRegexp,
@@ -34,6 +34,8 @@ const songSchema = new Schema(
 );
 
 songSchema.post('save', mongoSaveError);
+songSchema.pre('findOneAndUpdate', setMongoUpdateSettings);
+songSchema.pre('findOneAndUpdate', mongoSaveError);
 
 const Song = model('song', songSchema);
 
