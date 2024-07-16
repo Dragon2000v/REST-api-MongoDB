@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import env from './utils/env.js';
 
+import genresRouter from './routers/genres-router.js';
 import songsRouter from './routers/songs-router.js';
 
 import logger from './middlewares/logger.js';
@@ -16,6 +17,7 @@ const startServer = () => {
   app.use(logger);
   app.use(express.json());
 
+  app.use('/api/genres', genresRouter);
   app.use('/api/songs', songsRouter);
 
   app.use(notFoundHandler);
