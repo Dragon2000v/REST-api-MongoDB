@@ -13,16 +13,16 @@ const getSongsController = async (req, res) => {
 };
 
 const getSongByIdController = async (req, res) => {
-  const { id } = req.params;
-  const data = await songServices.getSongById(id);
+  const { id: _id } = req.params;
+  const data = await songServices.getSong({ _id });
 
   if (!data) {
-    throw HttpError(404, `Song with id=${id} not found`);
+    throw HttpError(404, `Song with id=${_id} not found`);
   }
 
   res.status(200).json({
     status: 200,
-    message: `Song with id=${id} get successfully`,
+    message: `Song with id=${_id} get successfully`,
     data,
   });
 };
@@ -36,8 +36,39 @@ const addSongController = async (req, res) => {
   });
 };
 
+const updateSongController = async (req, res) => {
+  const { id: _id } = req.params;
+  const data = await songServices.updateSong({ _id }, req.body);
+
+  if (!data) {
+    throw HttpError(404, `Song with id=${_id} not found`);
+  }
+
+  res.status(200).json({
+    status: 200,
+    message: `Song update successfully`,
+    data,
+  });
+};
+
+const deleteSongController = async (req, res) => {
+  const { id: _id } = req.params;
+  const data = await songServices.deleteSong(_id);
+  if (!data) {
+    throw HttpError(404, `Song with id=${_id} not found`);
+  }
+  //res.status(204).send();
+  res.status(200).json({
+    status: 200,
+    message: `Song delete successfully`,
+    data,
+  });
+};
+
 export default {
   getSongsController: ctrlWrapper(getSongsController),
   getSongByIdController: ctrlWrapper(getSongByIdController),
   addSongController: ctrlWrapper(addSongController),
+  updateSongController: ctrlWrapper(updateSongController),
+  deleteSongController: ctrlWrapper(deleteSongController),
 };
